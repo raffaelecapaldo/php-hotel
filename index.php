@@ -156,6 +156,12 @@ if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i 
 
             </tbody>
         </table>
+
+        <?php if (!$filteredHotels) { ?>
+            <h3 class="text-center">Nessun risultato trovato</h3>
+        <?php } ?>
+
+
     </main>
-     <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
