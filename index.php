@@ -45,17 +45,14 @@ $hotels = [
 $filteredHotels = [];
 
 //Se c'è parking impostato in GET
-if (!empty($_GET['parking'])) {
-    foreach ($hotels as $hotel) {//Per ogni hotel
-        if ($hotel['parking']) {//se ha parking true
-            $filteredHotels[] = $hotel;//inseriscilo nell'array filtered
+if (!empty($_GET['parking']) && $_GET['parking'] == 'yes') {
+    foreach ($hotels as $hotel) { //Per ogni hotel
+        if ($hotel['parking']) { //se ha parking true
+            $filteredHotels[] = $hotel; //inseriscilo nell'array filtered
         }
     }
-    
-}
-
-else {
-    $filteredHotels = $hotels;//altrimenti mostra tutto
+} else {
+    $filteredHotels = $hotels; //altrimenti mostra tutto
 
 }
 
@@ -78,11 +75,19 @@ else {
 <body>
     <header>
         <h1 class="text-center">Hotel del posto</h1>
-        <div class="filters contaneir-fluid mb-3">
+        <div class="filters w-75 mx-auto mb-3">
             <form class="d-flex align-items-center" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                <button name="parking" value="yes" type="submit" class="btn btn-primary ms-2 text-uppercase">mostra solo con parcheggio</button>
+                <label for="parking">Parcheggio</label>
+
+                <select name="parking" class="form-select w-25 ms-2">
+                    <option <?php echo !empty($_GET['parking']) ?  ($_GET['parking'] == 'yes' ? 'selected' : '') : '' ?> value="yes">SI</option>
+                    <option <?php echo !empty($_GET['parking']) ? ($_GET['parking'] == 'no' ? 'selected' : '') : '' ?> value="no">NO</option>
+                </select>
+                <button type="submit" class="btn btn-primary ms-2">Filtra</button>
+
 
             </form>
+
         </div>
     </header>
     <main>
