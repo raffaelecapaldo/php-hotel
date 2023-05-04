@@ -98,8 +98,8 @@ if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i 
 <body>
     <header>
         <h1 class="text-center">Hotel del posto</h1>
-        <div class="filters w-75 mx-auto mb-3">
-            <form class="d-flex align-items-center w-75" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <div class="filters  ms-2 mb-3">
+            <form class="d-flex align-items-center justify-content-center" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                 <div class="parking-filter d-flex align-items-center">
                     <label for="parking">Parcheggio</label>
 
@@ -108,11 +108,11 @@ if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i 
                         <option <?php echo !empty($_GET['parking']) ? ($_GET['parking'] == 'no' ? 'selected' : '') : '' ?> value="no">NO</option>
                     </select>
                 </div>
-                <div class="stars-filter ms-3 d-flex align-items-center">
-                    <label for="parking">Stelle</label>
+                <div class="stars-filter ms-1 d-flex align-items-center" style="width: 180px">
+                    <label for="stars" style="width: 200px">Stelle minime:</label>
 
 
-                    <select name="stars" class="form-select w-100 ms-2">
+                    <select name="stars" class="form-select w-50 ms-2">
                         <option <?php echo !empty($_GET['stars']) ?  ($_GET['stars'] == '1' ? 'selected' : '') : '' ?> value="1">1</option>
                         <option <?php echo !empty($_GET['stars']) ? ($_GET['stars'] == '2' ? 'selected' : '') : '' ?> value="2">2</option>
                         <option <?php echo !empty($_GET['stars']) ? ($_GET['stars'] == '3' ? 'selected' : '') : '' ?> value="3">3</option>
@@ -121,8 +121,10 @@ if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i 
 
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary ms-4">Filtra</button>
-                <button id="reset" class="btn btn-primary ms-4">Reset</button>
+                <div class="buttons">
+                    <button type="submit" class="btn btn-primary ms-4">Filtra</button>
+                    <button id="reset" class="btn btn-primary ms-4">Reset</button>
+                </div>
 
 
             </form>
