@@ -40,6 +40,28 @@ $hotels = [
 
 ];
 
+
+//Dichiario array filtrato
+$filteredHotels = [];
+
+//Se c'è parking impostato in GET
+if (!empty($_GET['parking'])) {
+    foreach ($hotels as $hotel) {//Per ogni hotel
+        if ($hotel['parking']) {//se ha parking true
+            $filteredHotels[] = $hotel;//inseriscilo nell'array filtered
+        }
+    }
+    
+}
+
+else {
+    $filteredHotels = $hotels;//altrimenti mostra tutto
+
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -56,16 +78,11 @@ $hotels = [
 <body>
     <header>
         <h1 class="text-center">Hotel del posto</h1>
-        <div class="filters w-50 mx-auto">
-        <form class="d-flex align-items-center" action="">
-            <label for="parking">Parcheggio</label>
-            <select id="parking" class="form-select ms-2 w-25">
-                <option value="yes">SI</option>
-                <option value="no">NO</option>
-            </select>
-            <button type="submit" class="btn btn-primary ms-2">Filtra</button>
+        <div class="filters contaneir-fluid mb-3">
+            <form class="d-flex align-items-center" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                <button name="parking" value="yes" type="submit" class="btn btn-primary ms-2 text-uppercase">mostra solo con parcheggio</button>
 
-        </form>
+            </form>
         </div>
     </header>
     <main>
@@ -82,7 +99,7 @@ $hotels = [
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($hotels as $hotel) { ?>
+                <?php foreach ($filteredHotels as $hotel) { ?>
                     <tr>
                         <td><?php echo $hotel["name"] ?></td>
                         <td><?php echo $hotel["description"] ?></td>
