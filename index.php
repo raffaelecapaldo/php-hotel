@@ -44,15 +44,38 @@ $hotels = [
 //Dichiario array filtrato
 $filteredHotels = [];
 
-//Se c'è parking impostato in GET
-if (!empty($_GET['parking']) && $_GET['parking'] == 'yes') {
-    foreach ($hotels as $hotel) { //Per ogni hotel
-        if ($hotel['parking']) { //se ha parking true
-            $filteredHotels[] = $hotel; //inseriscilo nell'array filtered
+if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i parametri
+    if ($_GET['parking'] == 'yes') { // se parking è su yes
+        foreach ($hotels as $hotel) { //Per ogni hotel
+            if ($hotel['vote'] >= $_GET['stars'] && $hotel['parking']) { //Aggiungi solo quelli col voto corrispondente alla scelta e con parking a true
+                $filteredHotels[] = $hotel;
+            }
+        }
+    } else { //Se parking è a no
+        foreach ($hotels as $hotel) { //Per ogni hotel
+            if ($hotel['vote'] >= $_GET['stars'] && !$hotel['parking']) { //Aggiungi solo quelli col voto corrispondente alla scelta e con parking a false
+                $filteredHotels[] = $hotel;
+            }
         }
     }
-} else {
-    $filteredHotels = $hotels; //altrimenti mostra tutto
+} else if (!isset($_GET['parking']) && isset($_GET['stars'])) { //se c'è solo parking
+    if ($_GET['parking'] == 'yes') { // se parking è su yes
+        foreach ($hotels as $hotel) { //Per ogni hotel
+            if ($hotel['parking']) { //Aggiungi solo quelli con parking true
+                $filteredHotels[] = $hotel;
+            }
+        }
+    } else {
+        $filteredHotels[] = $hotel; //Altrimenti non cambia nulla
+    }
+} else if (isset($_GET['parking']) && !isset($_GET['stars'])) { //Se c'è solo stars
+    foreach ($hotels as $hotel) { //Per ogni hotel
+        if ($hotel['vote'] >= $_GET['stars']) { //Aggiungi solo quelli col voto corrispondente alla scelta
+            $filteredHotels[] = $hotel;
+        }
+    }
+} else { //Se non c'è nessun parametro in get
+    $filteredHotels = $hotels; // mostra tutto
 
 }
 
@@ -76,14 +99,29 @@ if (!empty($_GET['parking']) && $_GET['parking'] == 'yes') {
     <header>
         <h1 class="text-center">Hotel del posto</h1>
         <div class="filters w-75 mx-auto mb-3">
-            <form class="d-flex align-items-center" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                <label for="parking">Parcheggio</label>
+            <form class="d-flex align-items-center w-75" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                <div class="parking-filter d-flex align-items-center">
+                    <label for="parking">Parcheggio</label>
 
-                <select name="parking" class="form-select w-25 ms-2">
-                    <option <?php echo !empty($_GET['parking']) ?  ($_GET['parking'] == 'yes' ? 'selected' : '') : '' ?> value="yes">SI</option>
-                    <option <?php echo !empty($_GET['parking']) ? ($_GET['parking'] == 'no' ? 'selected' : '') : '' ?> value="no">NO</option>
-                </select>
-                <button type="submit" class="btn btn-primary ms-2">Filtra</button>
+                    <select name="parking" class="form-select w-100 ms-2 me-2">
+                        <option <?php echo !empty($_GET['parking']) ?  ($_GET['parking'] == 'yes' ? 'selected' : '') : '' ?> value="yes">SI</option>
+                        <option <?php echo !empty($_GET['parking']) ? ($_GET['parking'] == 'no' ? 'selected' : '') : '' ?> value="no">NO</option>
+                    </select>
+                </div>
+                <div class="stars-filter ms-3 d-flex align-items-center">
+                    <label for="parking">Stelle</label>
+
+
+                    <select name="stars" class="form-select w-100 ms-2">
+                        <option <?php echo !empty($_GET['stars']) ?  ($_GET['stars'] == '1' ? 'selected' : '') : '' ?> value="1">1</option>
+                        <option <?php echo !empty($_GET['stars']) ? ($_GET['stars'] == '2' ? 'selected' : '') : '' ?> value="2">2</option>
+                        <option <?php echo !empty($_GET['stars']) ? ($_GET['stars'] == '3' ? 'selected' : '') : '' ?> value="3">3</option>
+                        <option <?php echo !empty($_GET['stars']) ? ($_GET['stars'] == '4' ? 'selected' : '') : '' ?> value="4">4</option>
+                        <option <?php echo !empty($_GET['stars']) ? ($_GET['stars'] == '5' ? 'selected' : '') : '' ?> value="5">5</option>
+
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary ms-4">Filtra</button>
 
 
             </form>
