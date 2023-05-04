@@ -52,13 +52,14 @@
     <title>Hotel</title>
 </head>
 <body>
+    <h1 class="text-center">Hotel del posto</h1>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Nome</th>
       <th scope="col">Descrizione</th>
       <th scope="col">Parcheggio</th>
-      <th scope="col">Voto</th>
+      <th scope="col">Stelle</th>
       <th scope="col">Distanza dal centro</th>
 
 
@@ -69,7 +70,7 @@
     <tr>
       <td><?php echo $hotel["name"] ?></td>
       <td><?php echo $hotel["description"] ?></td>
-      <td><?php echo $hotel["parking"] ?></td>
+      <td><?php echo ($hotel["parking"] ? 'SI' : 'NO'); ?></td>
       <td><?php echo $hotel["vote"] ?></td>
       <td><?php echo $hotel["distance_to_center"] ?> km</td>
     </tr>
