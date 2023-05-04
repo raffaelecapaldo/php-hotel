@@ -122,6 +122,7 @@ if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i 
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary ms-4">Filtra</button>
+                <button id="reset" class="btn btn-primary ms-4">Reset</button>
 
 
             </form>
@@ -156,4 +157,5 @@ if (isset($_GET['parking']) && isset($_GET['stars'])) { //Se ci sono entrambi i 
             </tbody>
         </table>
     </main>
+     <script src="script.js"></script>
 </body>
